@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		A1AED02326EF57C700AE90E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AED02226EF57C700AE90E5 /* AppDelegate.swift */; };
 		A1AED02526EF57C700AE90E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AED02426EF57C700AE90E5 /* SceneDelegate.swift */; };
-		A1AED02726EF57C700AE90E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AED02626EF57C700AE90E5 /* ViewController.swift */; };
+		A1AED02726EF57C700AE90E5 /* DVCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AED02626EF57C700AE90E5 /* DVCanvasViewController.swift */; };
 		A1AED02A26EF57C700AE90E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1AED02826EF57C700AE90E5 /* Main.storyboard */; };
 		A1AED02D26EF57C700AE90E5 /* DVDrawboard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A1AED02B26EF57C700AE90E5 /* DVDrawboard.xcdatamodeld */; };
 		A1AED02F26EF57C800AE90E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1AED02E26EF57C800AE90E5 /* Assets.xcassets */; };
@@ -39,7 +39,7 @@
 		A1AED01F26EF57C700AE90E5 /* DVDrawboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DVDrawboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1AED02226EF57C700AE90E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1AED02426EF57C700AE90E5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A1AED02626EF57C700AE90E5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A1AED02626EF57C700AE90E5 /* DVCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVCanvasViewController.swift; sourceTree = "<group>"; };
 		A1AED02926EF57C700AE90E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A1AED02C26EF57C700AE90E5 /* DVDrawboard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DVDrawboard.xcdatamodel; sourceTree = "<group>"; };
 		A1AED02E26EF57C800AE90E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 			children = (
 				A1AED02226EF57C700AE90E5 /* AppDelegate.swift */,
 				A1AED02426EF57C700AE90E5 /* SceneDelegate.swift */,
-				A1AED02626EF57C700AE90E5 /* ViewController.swift */,
+				A1AED02626EF57C700AE90E5 /* DVCanvasViewController.swift */,
 				A1AED02826EF57C700AE90E5 /* Main.storyboard */,
 				A1AED02E26EF57C800AE90E5 /* Assets.xcassets */,
 				A1AED03026EF57C800AE90E5 /* LaunchScreen.storyboard */,
@@ -259,7 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1AED02D26EF57C700AE90E5 /* DVDrawboard.xcdatamodeld in Sources */,
-				A1AED02726EF57C700AE90E5 /* ViewController.swift in Sources */,
+				A1AED02726EF57C700AE90E5 /* DVCanvasViewController.swift in Sources */,
 				A1AED02326EF57C700AE90E5 /* AppDelegate.swift in Sources */,
 				A1AED02526EF57C700AE90E5 /* SceneDelegate.swift in Sources */,
 			);

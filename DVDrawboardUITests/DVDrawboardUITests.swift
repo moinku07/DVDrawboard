@@ -8,6 +8,8 @@
 import XCTest
 
 class DVDrawboardUITests: XCTestCase {
+    
+    let app = XCUIApplication()
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -21,22 +23,15 @@ class DVDrawboardUITests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
+    
+    func test_01_when_i_open_the_app_then_i_should_see_a_canvas(){
+        // When I (user) open the app
         app.launch()
-
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
+        
+        // Then I should see a canvas
+        let canvasView = app.otherElements["CanvasView"]
+        if(!canvasView.waitForExistence(timeout: 5)){
+            XCTFail("Canvas View does not exist")
         }
     }
 }
