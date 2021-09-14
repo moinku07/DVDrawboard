@@ -10,7 +10,7 @@ import PencilKit
 
 class DVCanvasViewController: UIViewController {
 
-    @IBOutlet weak var canvasView: PKCanvasView!
+    @IBOutlet weak var canvasView: DVCanvasView!
     
     let toolPicker: PKToolPicker = PKToolPicker()
     
@@ -31,30 +31,87 @@ class DVCanvasViewController: UIViewController {
         toolPicker.addObserver(canvasView)
         canvasView.becomeFirstResponder()
         
-        // Define soints on strokePath
-        let strokeSize = CGSize(width: 10, height: 10)
-        let strokePoint1 = createStrokePoint(for: CGPoint(x: 50, y: 50), withSize: strokeSize)
-        let strokePoint2 = createStrokePoint(for: CGPoint(x: 250, y: 50), withSize: strokeSize)
-        let strokePoint3 = createStrokePoint(for: CGPoint(x: 250, y: 250), withSize: strokeSize)
-        let strokePoint4 = createStrokePoint(for: CGPoint(x: 50, y: 250), withSize: strokeSize)
+        let points = [CGPoint(x: 50, y: 50), CGPoint(x: 250, y: 50), CGPoint(x: 250, y: 250), CGPoint(x: 50, y: 250), CGPoint(x: 50, y: 50)]
         
-        // Define strokePath
-        let strokePath = PKStrokePath(controlPoints: [strokePoint1, strokePoint2, strokePoint3, strokePoint4], creationDate: Date())
+        //canvasView.drawing.strokes += makeStroke(from: points, size: CGSize(width: 5, height: 5))
         
-        // Define stroke
-        let stroke = PKStroke(ink: PKInk(.pen, color: .red), path: strokePath)
-        
-        canvasView.drawing.strokes.append(stroke)
-    }
-
-
-    func createStrokePoint(for location: CGPoint, withSize size: CGSize) -> PKStrokePoint{
-        return PKStrokePoint(location: location, timeOffset: TimeInterval.init(), size: size, opacity: 2, force: 1, azimuth: 1, altitude: 1)
+        drawShape(onCanvas: canvasView, pointArrays: points)
     }
     
+    @IBAction func onAddButtonTap(_ sender: UIBarButtonItem) {
+        if canvasView.isFirstResponder{
+            canvasView.resignFirstResponder()
+        }else{
+            canvasView.becomeFirstResponder()
+        }
+    }
+    
+    @IBAction func onSaveTap(_ sender: UIBarButtonItem) {
+        let image = canvasView.drawing.image(from: canvasView.bounds, scale: 1.0)
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+    }
+    
+    func makeStroke(from pointArrays: [CGPoint],
+              ink: PKInk = PKInk(.pen, color: .black),
+              size: CGSize = CGSize(width: 2, height: 2),
+              opacity: CGFloat = 1,
+              force: CGFloat = 1,
+              azimuth: CGFloat = 0,
+              altitude: CGFloat = 0) -> [PKStroke]{
+        
+        guard pointArrays.count > 0 else {
+            return []
+        }
+        
+        var strokes: [PKStroke] = []
+        
+        let strokePoints = pointArrays.enumerated().map { index, point in
+            PKStrokePoint(location: point, timeOffset: 0.1 * TimeInterval(index), size: size, opacity: opacity, force: force, azimuth: azimuth, altitude: altitude)
+        }
+        
+        var startStrokePoint = strokePoints.first!
+        
+        for strokePoint in strokePoints {
+            let path = PKStrokePath(controlPoints: [startStrokePoint, strokePoint], creationDate: Date())
+            strokes.append(PKStroke(ink: ink, path: path))
+            startStrokePoint = strokePoint
+        }
+        
+        return strokes
+    }
+    
+    func drawShape(onCanvas canvas: DVCanvasView,
+                   pointArrays: [CGPoint],
+                   fillColor: CGColor = UIColor.black.cgColor,
+                   strokeColor: CGColor = UIColor.black.cgColor,
+                   lineWidth: CGFloat = 2){
+        
+        guard pointArrays.count > 0 else { return }
+        
+        var pointArrays = pointArrays
+        
+        let shapeLayerPath = CGMutablePath()
+        shapeLayerPath.move(to: pointArrays.first!)
+        
+        pointArrays.remove(at: 0)
+        
+        for point in pointArrays where pointArrays.count > 0{
+            shapeLayerPath.addLine(to: point)
+        }
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = shapeLayerPath
+        shapeLayer.fillColor = UIColor.red.cgColor
+        shapeLayer.strokeColor = UIColor.black.cgColor
+        shapeLayer.lineWidth = 4
+        
+        canvasView.layer.addSublayer(shapeLayer)
+    }
 }
 
 extension DVCanvasViewController: PKCanvasViewDelegate{
-    
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        print("here")
+    }
 }
 
