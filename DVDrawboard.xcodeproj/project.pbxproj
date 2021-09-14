@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		330656E926F05FC7006183B5 /* DVCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330656E826F05FC7006183B5 /* DVCanvasView.swift */; };
+		A112A24C26F0C8BE00D85B5E /* DVShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112A24B26F0C8BE00D85B5E /* DVShape.swift */; };
+		A180EFC226F08EE100CA9F8D /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180EFC126F08EE100CA9F8D /* CanvasViewController.swift */; };
+		A180EFC426F090F100CA9F8D /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180EFC326F090F100CA9F8D /* CanvasView.swift */; };
 		A1AED02326EF57C700AE90E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AED02226EF57C700AE90E5 /* AppDelegate.swift */; };
 		A1AED02526EF57C700AE90E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AED02426EF57C700AE90E5 /* SceneDelegate.swift */; };
 		A1AED02726EF57C700AE90E5 /* DVCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AED02626EF57C700AE90E5 /* DVCanvasViewController.swift */; };
@@ -38,6 +41,9 @@
 
 /* Begin PBXFileReference section */
 		330656E826F05FC7006183B5 /* DVCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVCanvasView.swift; sourceTree = "<group>"; };
+		A112A24B26F0C8BE00D85B5E /* DVShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVShape.swift; sourceTree = "<group>"; };
+		A180EFC126F08EE100CA9F8D /* CanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewController.swift; sourceTree = "<group>"; };
+		A180EFC326F090F100CA9F8D /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		A1AED01F26EF57C700AE90E5 /* DVDrawboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DVDrawboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1AED02226EF57C700AE90E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1AED02426EF57C700AE90E5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +111,9 @@
 				A1AED02426EF57C700AE90E5 /* SceneDelegate.swift */,
 				A1AED02626EF57C700AE90E5 /* DVCanvasViewController.swift */,
 				330656E826F05FC7006183B5 /* DVCanvasView.swift */,
+				A180EFC126F08EE100CA9F8D /* CanvasViewController.swift */,
+				A180EFC326F090F100CA9F8D /* CanvasView.swift */,
+				A112A24B26F0C8BE00D85B5E /* DVShape.swift */,
 				A1AED02826EF57C700AE90E5 /* Main.storyboard */,
 				A1AED02E26EF57C800AE90E5 /* Assets.xcassets */,
 				A1AED03026EF57C800AE90E5 /* LaunchScreen.storyboard */,
@@ -262,9 +271,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1AED02D26EF57C700AE90E5 /* DVDrawboard.xcdatamodeld in Sources */,
+				A180EFC426F090F100CA9F8D /* CanvasView.swift in Sources */,
 				A1AED02726EF57C700AE90E5 /* DVCanvasViewController.swift in Sources */,
+				A112A24C26F0C8BE00D85B5E /* DVShape.swift in Sources */,
 				A1AED02326EF57C700AE90E5 /* AppDelegate.swift in Sources */,
 				A1AED02526EF57C700AE90E5 /* SceneDelegate.swift in Sources */,
+				A180EFC226F08EE100CA9F8D /* CanvasViewController.swift in Sources */,
 				330656E926F05FC7006183B5 /* DVCanvasView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

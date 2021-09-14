@@ -47,8 +47,21 @@ class DVCanvasViewController: UIViewController {
     }
     
     @IBAction func onSaveTap(_ sender: UIBarButtonItem) {
-        let image = canvasView.drawing.image(from: canvasView.bounds, scale: 1.0)
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        Task(priority: .userInitiated) {
+            do{
+                let success = try await canvasView.saveImage()
+                if success{
+                    let alert = UIAlertController(title: "Success", message: "Photo was saved", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }catch{
+                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+        
     }
     
     func makeStroke(from pointArrays: [CGPoint],
@@ -99,12 +112,18 @@ class DVCanvasViewController: UIViewController {
             shapeLayerPath.addLine(to: point)
         }
         
+        shapeLayerPath.closeSubpath()
+        
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = shapeLayerPath
         shapeLayer.fillColor = UIColor.red.cgColor
         shapeLayer.strokeColor = UIColor.black.cgColor
         shapeLayer.lineWidth = 4
         
+//        let layerCount = canvasView.layer.sublayers?.count ?? 0
+//        let insertAt = layerCount - 2 > 0 ? layerCount - 2 : 0
+//
+//        canvasView.layer.insertSublayer(shapeLayer, at: UInt32(2))
         canvasView.layer.addSublayer(shapeLayer)
     }
 }

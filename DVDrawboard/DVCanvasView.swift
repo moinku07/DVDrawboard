@@ -6,6 +6,7 @@
 //
 
 import PencilKit
+import Photos
 
 class DVCanvasView: PKCanvasView{
     
@@ -34,7 +35,6 @@ class DVCanvasView: PKCanvasView{
         }
         
         guard let shapeLayers: [CAShapeLayer] = self.layer.sublayers?.filter({$0.isKind(of: CAShapeLayer.self)}) as? [CAShapeLayer] else{
-            print("no shape layer found")
             return
         }
         
@@ -43,10 +43,6 @@ class DVCanvasView: PKCanvasView{
                 selectedShapeLayer = shapeLayer
                 break
             }
-        }
-        
-        if selectedShapeLayer != nil{
-            print("found selectedShapeLayer")
         }
     }
     
@@ -66,5 +62,23 @@ class DVCanvasView: PKCanvasView{
         moveShapeLayer(shapeLayer, to: point)
         
         selectedShapeLayer = nil
+    }
+}
+
+extension DVCanvasView{
+    func saveImage() async throws -> Bool{
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
+        self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        if image != nil{
+            try await PHPhotoLibrary.shared().performChanges {
+                PHAssetChangeRequest.creationRequestForAsset(from: image!)
+            }
+            return true
+        }
+        
+        return false
     }
 }
