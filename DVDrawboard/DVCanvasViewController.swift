@@ -42,13 +42,32 @@ class DVCanvasViewController: UIViewController {
         canvasView.delegate = self
         
         colorPicker.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        let points1 = [CGPoint(x: 150, y: 300), CGPoint(x: 250, y: 450), CGPoint(x: 50, y: 450)]
-        let points2 = [CGPoint(x: 50, y: 50), CGPoint(x: 250, y: 50), CGPoint(x: 250, y: 250), CGPoint(x: 50, y: 250)]
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIScene.willDeactivateNotification, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        canvasView.addShape(ofType: .triangle, points: points1)
+        canvasView.restoreRecentState()
         
-        canvasView.addShape(ofType: .rectangle, points: points2, fillColor: UIColor.blue)
+//        canvasView.addShape(ofType: .triangle)
+//
+//        canvasView.addShape(ofType: .rectangle, fillColor: UIColor.blue)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: UIScene.willDeactivateNotification, object: nil)
+    }
+    
+    @objc func willResignActive(){
+        canvasView.saveCurrentState()
     }
     
     @IBAction func onPencilTap(_ sender: UIBarButtonItem) {
@@ -95,6 +114,18 @@ class DVCanvasViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             }
         }
+    }
+    
+    @IBAction func onTriangleTap(_ sender: UIBarButtonItem) {
+        canvasView.addShape(ofType: .triangle, fillColor: selectedColor, strokeColor: selectedColor)
+    }
+    
+    @IBAction func onRectangleTap(_ sender: UIBarButtonItem) {
+        canvasView.addShape(ofType: .rectangle, fillColor: selectedColor, strokeColor: selectedColor)
+    }
+    
+    @IBAction func onCircleTap(_ sender: UIBarButtonItem) {
+        canvasView.addShape(ofType: .circle, fillColor: selectedColor, strokeColor: selectedColor)
     }
     
 }

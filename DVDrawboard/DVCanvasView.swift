@@ -40,6 +40,39 @@ class DVCanvasView: UIView{
 }
 
 extension DVCanvasView{
+    
+    // MARK: - Saving current state
+    public func saveCurrentState(){
+//        let userDefautls = UserDefaults.standard
+//        
+//        if let shapeData = try? NSKeyedArchiver.archivedData(withRootObject: shapes, requiringSecureCoding: false){
+//            userDefautls.set(shapeData, forKey: "kDVShapes")
+//        }
+//        
+//        if let redoData = try? NSKeyedArchiver.archivedData(withRootObject: redoShapes, requiringSecureCoding: false){
+//            userDefautls.set(redoData, forKey: "kDVRedoShapes")
+//        }
+//        
+//        UserDefaults.standard.synchronize()
+    }
+    
+    // MARK: - Restore saved state
+    public func restoreRecentState(){
+        let userDefautls = UserDefaults.standard
+        
+//
+//        if let shapeData = userDefautls.value(forKey: "kDVShapes") as? Data, let shapes = try? NSKeyedUnarchiver.unarchivedObject(ofClass: [DVShape].self, from: shapeData){
+//            self.shapes = shapes
+//        }
+//        if let redoShapes = userDefautls.value(forKey: "kDVRedoShapes") as? [DVShape]{
+//            self.redoShapes = redoShapes
+//        }
+        
+        drawShapes(.all)
+    }
+}
+
+extension DVCanvasView{
     // MARK: - Move Shape Layer
     
     /// This method moves the shape layer to the new position
@@ -89,6 +122,7 @@ extension DVCanvasView{
             // Create a new shape
             let layerIndex = self.layer.sublayers?.count ?? 0
             shapes.append(DVShape(strokeColor: selectedColor, fillColor: .clear, lineWidth: 6, points: [point], layerIndex: layerIndex))
+            drawShapes()
             
             // Invalidate all redos when a new shape is created
             redoShapes.removeAll()
@@ -137,13 +171,47 @@ extension DVCanvasView{
     
     // MARK: - Add a shape
     /// This method adds a new shape on the canvas
-    public func addShape(ofType type: DVShapeType, points: [CGPoint],
+    public func addShape(ofType type: DVShapeType,
                          fillColor: UIColor = UIColor.black,
                          strokeColor: UIColor = UIColor.black,
                          lineWidth: CGFloat = 2){
         
+        let midPoint = self.center
+        
+        var paths: [CGPath] = []
+        var points: [CGPoint] = [
+            CGPoint(x: midPoint.x - 100, y: midPoint.y),
+            CGPoint(x: midPoint.x + 100, y: midPoint.y)
+        ]
+        
+        if type == .triangle{
+            points = [
+                CGPoint(x: midPoint.x, y: midPoint.y - 100),
+                CGPoint(x: midPoint.x + 100, y: midPoint.y + 50),
+                CGPoint(x: midPoint.x - 100, y: midPoint.y + 50)
+            ]
+        }else if type == .rectangle{
+            points = [
+                CGPoint(x: midPoint.x - 100, y: 50),
+                CGPoint(x: midPoint.x + 100, y: 50),
+                CGPoint(x: midPoint.x + 100, y: 250),
+                CGPoint(x: midPoint.x - 100, y: 250)
+            ]
+        }else if type == .circle{
+            points = [midPoint]
+            // because circle is different, we set the path for it
+            paths = [UIBezierPath(ovalIn: CGRect(x: midPoint.x - 50, y: midPoint.y - 50, width: 100, height: 100)).cgPath]
+        }
+        
         let layerIndex = self.layer.sublayers?.count ?? 0
-        let shape = DVShape(shapeType: type, strokeColor: strokeColor, fillColor: fillColor, lineWidth: lineWidth, points: points, layerIndex: layerIndex)
+        let shape = DVShape(shapeType: type,
+                            strokeColor: strokeColor,
+                            fillColor: fillColor,
+                            lineWidth: lineWidth,
+                            points: points,
+                            layerIndex: layerIndex,
+                            isRendered: type == .circle ? true : false,
+                            paths: paths)
         if var shape = drawShape(using: shape){
             shape.isRendered = true
             shapes.append(shape)
@@ -237,6 +305,7 @@ extension DVCanvasView{
                 shape.lineWidth = lineWidth
                 dvlayer.lineWidth = lineWidth
             }
+            shapes[dvlayer.index] = shape
         }
     }
     

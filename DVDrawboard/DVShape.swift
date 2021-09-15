@@ -8,7 +8,7 @@
 import UIKit
 
 enum DVShapeType: Int{
-    case line, triangle, rectangle
+    case line, triangle, rectangle, circle
 }
 
 struct DVShape{

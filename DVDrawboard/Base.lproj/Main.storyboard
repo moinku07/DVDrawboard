@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19158" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="a8S-yS-QHU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19150" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="a8S-yS-QHU">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19141"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19134"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,57 +17,84 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zu7-S4-OFy" customClass="DVCanvasView" customModule="DVDrawboard" customModuleProvider="target">
-                                <rect key="frame" x="20" y="108" width="374" height="734"/>
+                                <rect key="frame" x="5" y="93" width="404" height="720"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" identifier="DVCanvasView">
                                     <bool key="isElement" value="NO"/>
                                 </accessibility>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cTs-gk-ucg">
+                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="72w-dS-don"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem image="pencil.tip" catalog="system" id="A4T-FD-ZJl">
+                                        <connections>
+                                            <action selector="onPencilTap:" destination="Ths-tS-i99" id="V1H-V3-9xU"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem image="hand.point.up.left" catalog="system" id="vcx-sU-NXN">
+                                        <connections>
+                                            <action selector="onSelectTap:" destination="Ths-tS-i99" id="c3l-Tu-Imi"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem image="eyedropper" catalog="system" id="k5y-RQ-XQ8">
+                                        <connections>
+                                            <action selector="onColorPickerTap:" destination="Ths-tS-i99" id="SF0-id-fOx"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="U3m-xZ-bX8"/>
+                                    <barButtonItem id="WL9-WA-imM">
+                                        <imageReference key="image" image="triangle" catalog="system"/>
+                                        <connections>
+                                            <action selector="onTriangleTap:" destination="Ths-tS-i99" id="D3Z-Un-6uz"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem id="73h-Ro-xiK">
+                                        <imageReference key="image" image="rectangle" catalog="system"/>
+                                        <connections>
+                                            <action selector="onRectangleTap:" destination="Ths-tS-i99" id="lQ6-xd-A9i"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem id="hDg-Zl-mg6">
+                                        <imageReference key="image" image="circle" catalog="system"/>
+                                        <connections>
+                                            <action selector="onCircleTap:" destination="Ths-tS-i99" id="A5l-1C-LLZ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="eSc-IK-hjj"/>
+                                    <barButtonItem image="arrow.uturn.backward.circle" catalog="system" id="p90-Pz-gXJ">
+                                        <connections>
+                                            <action selector="onUndoTap:" destination="Ths-tS-i99" id="dBC-u3-UCO"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem image="arrow.uturn.forward.circle" catalog="system" id="Vyc-zc-XuF">
+                                        <connections>
+                                            <action selector="onRedoTap:" destination="Ths-tS-i99" id="h6M-Vy-hIs"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mEj-nL-yka"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Zu7-S4-OFy" firstAttribute="leading" secondItem="mEj-nL-yka" secondAttribute="leading" constant="20" id="1Bv-bY-QEd"/>
-                            <constraint firstItem="Zu7-S4-OFy" firstAttribute="top" secondItem="mEj-nL-yka" secondAttribute="top" constant="20" id="Gnh-Qt-xtC"/>
-                            <constraint firstItem="mEj-nL-yka" firstAttribute="bottom" secondItem="Zu7-S4-OFy" secondAttribute="bottom" constant="20" id="R8v-JB-wkQ"/>
-                            <constraint firstItem="mEj-nL-yka" firstAttribute="trailing" secondItem="Zu7-S4-OFy" secondAttribute="trailing" constant="20" id="V6F-TA-SJy"/>
+                            <constraint firstItem="Zu7-S4-OFy" firstAttribute="leading" secondItem="mEj-nL-yka" secondAttribute="leading" constant="5" id="1Bv-bY-QEd"/>
+                            <constraint firstItem="cTs-gk-ucg" firstAttribute="top" secondItem="Zu7-S4-OFy" secondAttribute="bottom" constant="5" id="8H6-6U-dAa"/>
+                            <constraint firstItem="Zu7-S4-OFy" firstAttribute="top" secondItem="mEj-nL-yka" secondAttribute="top" constant="5" id="Gnh-Qt-xtC"/>
+                            <constraint firstItem="mEj-nL-yka" firstAttribute="trailing" secondItem="Zu7-S4-OFy" secondAttribute="trailing" constant="5" id="V6F-TA-SJy"/>
+                            <constraint firstItem="cTs-gk-ucg" firstAttribute="leading" secondItem="mEj-nL-yka" secondAttribute="leading" id="kCe-wQ-yrf"/>
+                            <constraint firstAttribute="trailing" secondItem="cTs-gk-ucg" secondAttribute="trailing" id="ms2-sr-l8n"/>
+                            <constraint firstItem="cTs-gk-ucg" firstAttribute="bottom" secondItem="mEj-nL-yka" secondAttribute="bottom" id="pZH-Pn-rdr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Canvas" id="mPG-tT-P4P">
-                        <leftBarButtonItems>
-                            <barButtonItem image="pencil.tip" catalog="system" id="A4T-FD-ZJl">
-                                <connections>
-                                    <action selector="onPencilTap:" destination="Ths-tS-i99" id="V1H-V3-9xU"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="hand.point.up.left" catalog="system" id="vcx-sU-NXN">
-                                <connections>
-                                    <action selector="onSelectTap:" destination="Ths-tS-i99" id="c3l-Tu-Imi"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="eyedropper" catalog="system" id="k5y-RQ-XQ8">
-                                <connections>
-                                    <action selector="onColorPickerTap:" destination="Ths-tS-i99" id="SF0-id-fOx"/>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
-                        <rightBarButtonItems>
-                            <barButtonItem image="arrow.down.circle" catalog="system" id="UfX-Kb-a12">
-                                <connections>
-                                    <action selector="onSaveTap:" destination="Ths-tS-i99" id="EaI-jH-mun"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="arrow.uturn.forward.circle" catalog="system" id="Vyc-zc-XuF">
-                                <connections>
-                                    <action selector="onRedoTap:" destination="Ths-tS-i99" id="h6M-Vy-hIs"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="arrow.uturn.backward.circle" catalog="system" id="p90-Pz-gXJ">
-                                <connections>
-                                    <action selector="onUndoTap:" destination="Ths-tS-i99" id="dBC-u3-UCO"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" image="arrow.down.circle" catalog="system" id="UfX-Kb-a12">
+                            <connections>
+                                <action selector="onSaveTap:" destination="Ths-tS-i99" id="EaI-jH-mun"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="canvasView" destination="Zu7-S4-OFy" id="GBP-DG-alr"/>
@@ -103,8 +131,11 @@
         <image name="arrow.down.circle" catalog="system" width="128" height="121"/>
         <image name="arrow.uturn.backward.circle" catalog="system" width="128" height="121"/>
         <image name="arrow.uturn.forward.circle" catalog="system" width="128" height="121"/>
+        <image name="circle" catalog="system" width="128" height="121"/>
         <image name="eyedropper" catalog="system" width="128" height="119"/>
         <image name="hand.point.up.left" catalog="system" width="121" height="128"/>
         <image name="pencil.tip" catalog="system" width="99" height="128"/>
+        <image name="rectangle" catalog="system" width="128" height="93"/>
+        <image name="triangle" catalog="system" width="128" height="112"/>
     </resources>
 </document>
