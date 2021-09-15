@@ -29,7 +29,7 @@ class DVDrawboardUITests: XCTestCase {
         app.launch()
         
         // Then I should see a canvas
-        let canvasView = app.otherElements["CanvasView"]
+        let canvasView = app.otherElements["DVCanvasView"]
         if(!canvasView.waitForExistence(timeout: 5)){
             XCTFail("Canvas View does not exist")
         }

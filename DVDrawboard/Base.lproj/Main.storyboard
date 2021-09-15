@@ -1,66 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19150" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="a8S-yS-QHU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19158" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="a8S-yS-QHU">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19134"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19141"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--DVCanvas-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="DVCanvasViewController" customModule="DVDrawboard" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tmQ-cw-t1g" customClass="DVCanvasView" customModule="DVDrawboard" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <accessibility key="accessibilityConfiguration" identifier="CanvasView"/>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="DVCanvas" id="FE7-CW-vXc">
-                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="akI-nD-7ZF">
-                            <connections>
-                                <action selector="onAddButtonTap:" destination="BYZ-38-t0r" id="koq-5j-fgb"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="qXi-E0-guI">
-                            <connections>
-                                <action selector="onSaveTap:" destination="BYZ-38-t0r" id="tSH-jj-Gis"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="canvasView" destination="tmQ-cw-t1g" id="cJX-kz-nY1"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1047.8260869565217" y="138.61607142857142"/>
-        </scene>
         <!--Canvas-->
         <scene sceneID="OVB-nB-3UZ">
             <objects>
-                <viewController id="Ths-tS-i99" customClass="CanvasViewController" customModule="DVDrawboard" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Ths-tS-i99" customClass="DVCanvasViewController" customModule="DVDrawboard" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VIV-3U-b9u">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zu7-S4-OFy" customClass="CanvasView" customModule="DVDrawboard" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zu7-S4-OFy" customClass="DVCanvasView" customModule="DVDrawboard" customModuleProvider="target">
                                 <rect key="frame" x="20" y="108" width="374" height="734"/>
-                                <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="DVCanvasView">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mEj-nL-yka"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Zu7-S4-OFy" firstAttribute="leading" secondItem="mEj-nL-yka" secondAttribute="leading" constant="20" id="1Bv-bY-QEd"/>
                             <constraint firstItem="Zu7-S4-OFy" firstAttribute="top" secondItem="mEj-nL-yka" secondAttribute="top" constant="20" id="Gnh-Qt-xtC"/>
@@ -69,37 +33,52 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Canvas" id="mPG-tT-P4P">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="UfX-Kb-a12">
-                            <connections>
-                                <action selector="onSaveTap:" destination="Ths-tS-i99" id="EaI-jH-mun"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem image="pencil.tip" catalog="system" id="A4T-FD-ZJl">
+                                <connections>
+                                    <action selector="onPencilTap:" destination="Ths-tS-i99" id="V1H-V3-9xU"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="hand.point.up.left" catalog="system" id="vcx-sU-NXN">
+                                <connections>
+                                    <action selector="onSelectTap:" destination="Ths-tS-i99" id="c3l-Tu-Imi"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="eyedropper" catalog="system" id="k5y-RQ-XQ8">
+                                <connections>
+                                    <action selector="onColorPickerTap:" destination="Ths-tS-i99" id="SF0-id-fOx"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
+                        <rightBarButtonItems>
+                            <barButtonItem image="arrow.down.circle" catalog="system" id="UfX-Kb-a12">
+                                <connections>
+                                    <action selector="onSaveTap:" destination="Ths-tS-i99" id="EaI-jH-mun"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="arrow.uturn.forward.circle" catalog="system" id="Vyc-zc-XuF">
+                                <connections>
+                                    <action selector="onRedoTap:" destination="Ths-tS-i99" id="h6M-Vy-hIs"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="arrow.uturn.backward.circle" catalog="system" id="p90-Pz-gXJ">
+                                <connections>
+                                    <action selector="onUndoTap:" destination="Ths-tS-i99" id="dBC-u3-UCO"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="canvasView" destination="Zu7-S4-OFy" id="GBP-DG-alr"/>
+                        <outlet property="pencilButton" destination="A4T-FD-ZJl" id="wW1-ZH-xPX"/>
+                        <outlet property="redoButton" destination="Vyc-zc-XuF" id="zFb-EB-yVi"/>
+                        <outlet property="selectButton" destination="vcx-sU-NXN" id="1Ea-bM-KJa"/>
+                        <outlet property="undoButton" destination="p90-Pz-gXJ" id="HLu-mP-7Zo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5xc-OP-KN6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2971.0144927536235" y="138.61607142857142"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="IkG-Wh-SHD">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CxO-OJ-HZO" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KRt-9G-3pd">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="CMP-82-Avd"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ydc-Z3-aj2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="138.61607142857142"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Wgf-qV-wd6">
@@ -121,8 +100,11 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="arrow.down.circle" catalog="system" width="128" height="121"/>
+        <image name="arrow.uturn.backward.circle" catalog="system" width="128" height="121"/>
+        <image name="arrow.uturn.forward.circle" catalog="system" width="128" height="121"/>
+        <image name="eyedropper" catalog="system" width="128" height="119"/>
+        <image name="hand.point.up.left" catalog="system" width="121" height="128"/>
+        <image name="pencil.tip" catalog="system" width="99" height="128"/>
     </resources>
 </document>
