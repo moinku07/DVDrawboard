@@ -1,6 +1,6 @@
 //
 //  DVCanvasView.swift
-//  DVCanvasView
+//  DVDrawboard
 //
 //  Created by Moin Uddin on 14/9/21.
 //
@@ -11,6 +11,7 @@ import Photos
 protocol DVCanvasViewDelegate{
     func onUndoChange(_ isEnabled: Bool)
     func onRedoChange(_ isEnabled: Bool)
+    func showAlert(_ title: String, message: String)
 }
 
 class DVCanvasView: UIView{
@@ -65,11 +66,19 @@ extension DVCanvasView{
         do{
             if let shapeData = userDefautls.value(forKey: "kDVShapes") as? Data{
                 let shapes = try JSONDecoder().decode([DVShape].self, from: shapeData)
-                self.shapes = shapes
+                self.shapes = shapes.map{
+                    var shape = $0
+                    shape.layerIndex -= 1
+                    return shape
+                }
             }
             if let redoShapesData = userDefautls.value(forKey: "kDVRedoShapes") as? Data{
                 let redoShapes = try JSONDecoder().decode([DVShape].self, from: redoShapesData)
-                self.redoShapes = redoShapes
+                self.redoShapes = redoShapes.map{
+                    var shape = $0
+                    shape.layerIndex -= 1
+                    return shape
+                }
             }
         }catch{
             print(error.localizedDescription)
@@ -99,8 +108,8 @@ extension DVCanvasView{
         shapeLayer.path = bezeirPath.cgPath
         CATransaction.commit()
         
-        if didMoveEnd, shapeLayer.index < shapes.count{
-            shapes[shapeLayer.index].paths.append(bezeirPath.cgPath)
+        if didMoveEnd, let index = shapes.firstIndex(where: {$0.id == shapeLayer.shape?.id}){
+            shapes[index].paths.append(bezeirPath.cgPath)
         }
     }
     
@@ -249,43 +258,21 @@ extension DVCanvasView{
         // Check if the shape has at least one point or path
         guard shape.points.count > 0 || shape.paths.count > 0 else{ return nil }
         
-        // remove if the shape was partially rendered (during the touch move)
-        if let count = self.layer.sublayers?.count, shape.layerIndex < count{
-            self.layer.sublayers?.remove(at: shape.layerIndex)
-        }
-        
         var shape = shape
         
-        // creating a DVShapeLayer
-        let shapeLayer = DVShapeLayer()
-        shapeLayer.index = shape.layerIndex
-        shapeLayer.strokeColor = shape.strokeColor.cgColor
-        shapeLayer.fillColor = shape.fillColor.cgColor
-        shapeLayer.lineWidth = shape.lineWidth
-        
-        if shape.isRendered, shape.paths.count > 0{
-            // using existing path for a rendered shape
-            shapeLayer.path = shape.paths.last!
+        // remove if the shape was partially rendered (during the touch move)
+        if shape.layerIndex > -1, let count = self.layer.sublayers?.count, shape.layerIndex < count{
+            self.layer.sublayers?.remove(at: shape.layerIndex)
         }else{
-            // drawing the path from the points
-            let bezierPath = UIBezierPath()
-            
-            for (i, point) in shape.points.enumerated() where shape.points.count > 0{
-                if i == 0{
-                    bezierPath.move(to: point)
-                }else{
-                    bezierPath.addLine(to: point)
-                }
-            }
-            
-            if [DVShapeType.triangle , DVShapeType.rectangle].contains(shape.shapeType){
-                bezierPath.close()
-            }
-            
-            shapeLayer.path = bezierPath.cgPath
-            
-            // saving the path
-            shape.paths = [bezierPath.cgPath]
+            shape.layerIndex = self.layer.sublayers?.count ?? 0
+        }
+        
+        // creating a DVShapeLayer
+        let shapeLayer = DVShapeLayer(shape)
+        
+        // saving the path
+        if let path = shapeLayer.path{
+            shape.paths = [path]
         }
         
         // finally, insert the shape to the desired sub layer location
@@ -298,8 +285,8 @@ extension DVCanvasView{
 extension DVCanvasView{
     // MARK: - Update shape attributes
     final public func updateSelectedShape(strokeColor: UIColor?, fillColor: UIColor?, lineWidth: CGFloat?){
-        if let dvlayer = selectedShapeLayer, dvlayer.index < shapes.count{
-            var shape = shapes[dvlayer.index]
+        if let dvlayer = selectedShapeLayer, let index = shapes.firstIndex(where: {$0.id == dvlayer.shape?.id}){
+            var shape = shapes[index]
             if let strokeColor = strokeColor {
                 shape.strokeColor = strokeColor
                 dvlayer.strokeColor = strokeColor.cgColor
@@ -312,14 +299,14 @@ extension DVCanvasView{
                 shape.lineWidth = lineWidth
                 dvlayer.lineWidth = lineWidth
             }
-            shapes[dvlayer.index] = shape
+            shapes[index] = shape
         }
     }
     
     // MARK: - Undo
     /// This method undo the last update
     final public func undo(){
-        if shapes.count > 0, let shape = shapes.popLast(){
+        if shapes.count > 0, var shape = shapes.popLast(){
             /*
              // TODO: - Future Improvements
             // when a shape has more than one path components
@@ -337,8 +324,11 @@ extension DVCanvasView{
                 shapes.append(shape)
             }else{*/
             
-            self.layer.sublayers?.remove(at: shape.layerIndex)
-            redoShapes.append(shape)
+            if let layerIndex = self.layer.sublayers?.firstIndex(where: {($0 as? DVShapeLayer)?.shape?.id == shape.id}){
+                self.layer.sublayers?.remove(at: layerIndex)
+                shape.layerIndex = -1
+                redoShapes.append(shape)
+            }
         }
     }
     
@@ -374,6 +364,22 @@ extension DVCanvasView{
                     shapes.append(renderedShape)
                 }
             }
+        }
+    }
+    
+    // MARK: - Delete selected shape
+    final public func deleteSelectedShape(){
+        if let shapeLayer = selectedShapeLayer, let index = shapes.firstIndex(where: {$0.id == shapeLayer.shape?.id}){
+            if let shapeIndex = self.layer.sublayers?.firstIndex(where: { ($0 as? DVShapeLayer) == shapeLayer}){
+                let shape = shapes[index]
+                redoShapes = [shape]
+                shapes.remove(at: index)
+                self.layer.sublayers?.remove(at: shapeIndex)
+            }else{
+                delegate?.showAlert("Warning", message: "No shape was selected. Please select a shape.")
+            }
+        }else{
+            delegate?.showAlert("Warning", message: "No shape was selected. Please select a shape.")
         }
     }
     

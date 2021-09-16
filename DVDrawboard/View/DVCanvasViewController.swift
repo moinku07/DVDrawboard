@@ -1,6 +1,6 @@
 //
 //  DVCanvasViewController.swift
-//  DVCanvasViewController
+//  DVDrawboard
 //
 //  Created by Moin Uddin on 14/9/21.
 //
@@ -136,6 +136,11 @@ class DVCanvasViewController: UIViewController {
         canvasView.addShape(ofType: .circle, fillColor: selectedColor, strokeColor: selectedColor)
     }
     
+    
+    @IBAction func onTrashTap(_ sender: UIBarButtonItem) {
+        canvasView.deleteSelectedShape()
+    }
+    
 }
 
 extension DVCanvasViewController: DVCanvasViewDelegate{
@@ -147,6 +152,11 @@ extension DVCanvasViewController: DVCanvasViewDelegate{
         redoButton.isEnabled = isEnabled
     }
     
+    func showAlert(_ title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
     
 }
 

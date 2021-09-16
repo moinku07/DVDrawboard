@@ -74,6 +74,11 @@
                                             <action selector="onRedoTap:" destination="Ths-tS-i99" id="h6M-Vy-hIs"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem systemItem="trash" id="Rhd-5M-skO">
+                                        <connections>
+                                            <action selector="onTrashTap:" destination="Ths-tS-i99" id="zOC-3w-TrY"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>

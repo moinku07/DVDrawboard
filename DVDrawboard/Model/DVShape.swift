@@ -1,6 +1,6 @@
 //
 //  DVShape.swift
-//  DVShape
+//  DVDrawboard
 //
 //  Created by Moin Uddin on 14/9/21.
 //
@@ -11,7 +11,9 @@ enum DVShapeType: Int, Codable{
     case line, triangle, rectangle, circle
 }
 
-struct DVShape: Codable{
+struct DVShape: Codable, Equatable{
+    let id = UUID()
+    
     var shapeType: DVShapeType
     var strokeColor: UIColor
     var fillColor: UIColor
@@ -146,8 +148,3 @@ struct DVShape: Codable{
         }
     }
 }
-
-class DVShapeLayer: CAShapeLayer{
-    var index: Int = 0
-}
-
