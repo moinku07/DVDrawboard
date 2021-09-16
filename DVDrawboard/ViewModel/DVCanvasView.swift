@@ -87,6 +87,9 @@ extension DVCanvasView{
             print(error.localizedDescription)
         }
         
+        // Frist clear all current shapes
+        self.layer.sublayers?.removeAll()
+        
         // Draw the restored shapes on the canvas
         drawShapes(.all)
     }
