@@ -8,6 +8,7 @@
 import UIKit
 import Photos
 
+// Delegate protocol
 protocol DVCanvasViewDelegate{
     func onUndoChange(_ isEnabled: Bool)
     func onRedoChange(_ isEnabled: Bool)
@@ -68,6 +69,7 @@ extension DVCanvasView{
                 let shapes = try JSONDecoder().decode([DVShape].self, from: shapeData)
                 self.shapes = shapes.map{
                     var shape = $0
+                    // reset layer index
                     shape.layerIndex -= 1
                     return shape
                 }
@@ -76,6 +78,7 @@ extension DVCanvasView{
                 let redoShapes = try JSONDecoder().decode([DVShape].self, from: redoShapesData)
                 self.redoShapes = redoShapes.map{
                     var shape = $0
+                    // reset layer index
                     shape.layerIndex -= 1
                     return shape
                 }
@@ -84,6 +87,7 @@ extension DVCanvasView{
             print(error.localizedDescription)
         }
         
+        // Draw the restored shapes on the canvas
         drawShapes(.all)
     }
 }
@@ -116,6 +120,7 @@ extension DVCanvasView{
     // MARK: - Touch Event Handlers
     
     // Preventing extending/overriding this method
+    // Handling the touch begin event to determine whether the user is selecting an existing shape or started a new drawing
     final override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Set the selection to nil to start over
         selectedShapeLayer = nil
@@ -146,6 +151,7 @@ extension DVCanvasView{
     }
     
     // Preventing extending/overriding this method
+    // Handle the touch move event to either draw shape or move the selected shape
     final override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let point = touches.first?.location(in: self) else { return }
         
@@ -164,6 +170,7 @@ extension DVCanvasView{
     }
     
     // Preventing extending/overriding this method
+    // Handle the touch end event to complete the current drawing event
     final override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let point = touches.first?.location(in: self) else { return }
         
@@ -181,6 +188,7 @@ extension DVCanvasView{
 }
 
 extension DVCanvasView{
+    // Determine the shape rendering state
     enum DVShapeRenderType: Int{
         case all, rendered, unrendered
     }
@@ -201,12 +209,14 @@ extension DVCanvasView{
         ]
         
         if type == .triangle{
+            // predefined triangle
             points = [
                 CGPoint(x: midPoint.x, y: midPoint.y - 100),
                 CGPoint(x: midPoint.x + 100, y: midPoint.y + 50),
                 CGPoint(x: midPoint.x - 100, y: midPoint.y + 50)
             ]
         }else if type == .rectangle{
+            // predefined rectangle
             points = [
                 CGPoint(x: midPoint.x - 100, y: 50),
                 CGPoint(x: midPoint.x + 100, y: 50),
@@ -214,6 +224,7 @@ extension DVCanvasView{
                 CGPoint(x: midPoint.x - 100, y: 250)
             ]
         }else if type == .circle{
+            // predefined circle
             points = [midPoint]
             // because circle is different, we set the path for it
             paths = [UIBezierPath(ovalIn: CGRect(x: midPoint.x - 50, y: midPoint.y - 50, width: 100, height: 100)).cgPath]
