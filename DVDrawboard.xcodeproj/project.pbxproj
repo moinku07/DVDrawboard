@@ -80,6 +80,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		331F7B4D26F2CCC600531979 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A180EFC126F08EE100CA9F8D /* DVCanvasViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		331F7B4E26F2CCD200531979 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A180EFC326F090F100CA9F8D /* DVCanvasView.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		331F7B4F26F2CCE400531979 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A112A24B26F0C8BE00D85B5E /* DVShape.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		A1AED01626EF57C700AE90E5 = {
 			isa = PBXGroup;
 			children = (
@@ -105,9 +129,9 @@
 			children = (
 				A1AED02226EF57C700AE90E5 /* AppDelegate.swift */,
 				A1AED02426EF57C700AE90E5 /* SceneDelegate.swift */,
-				A180EFC126F08EE100CA9F8D /* DVCanvasViewController.swift */,
-				A180EFC326F090F100CA9F8D /* DVCanvasView.swift */,
-				A112A24B26F0C8BE00D85B5E /* DVShape.swift */,
+				331F7B4F26F2CCE400531979 /* Model */,
+				331F7B4E26F2CCD200531979 /* ViewModel */,
+				331F7B4D26F2CCC600531979 /* View */,
 				A1AED02826EF57C700AE90E5 /* Main.storyboard */,
 				A1AED02E26EF57C800AE90E5 /* Assets.xcassets */,
 				A1AED03026EF57C800AE90E5 /* LaunchScreen.storyboard */,
