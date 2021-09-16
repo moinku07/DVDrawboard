@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19150" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="a8S-yS-QHU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19158" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="a8S-yS-QHU">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19134"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19141"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -90,9 +90,21 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Canvas" id="mPG-tT-P4P">
+                        <leftBarButtonItems>
+                            <barButtonItem systemItem="save" id="VCO-nC-taZ">
+                                <connections>
+                                    <action selector="onSaveTap:" destination="Ths-tS-i99" id="duw-nZ-Kku"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Load" id="ozc-0X-wSj">
+                                <connections>
+                                    <action selector="onLoadTap:" destination="Ths-tS-i99" id="uMy-e1-0ev"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" image="arrow.down.circle" catalog="system" id="UfX-Kb-a12">
                             <connections>
-                                <action selector="onSaveTap:" destination="Ths-tS-i99" id="EaI-jH-mun"/>
+                                <action selector="onDownloadTap:" destination="Ths-tS-i99" id="ENR-O3-Dfb"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

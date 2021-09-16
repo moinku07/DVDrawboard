@@ -43,30 +43,37 @@ extension DVCanvasView{
     
     // MARK: - Saving current state
     public func saveCurrentState(){
-//        let userDefautls = UserDefaults.standard
-//        
-//        if let shapeData = try? NSKeyedArchiver.archivedData(withRootObject: shapes, requiringSecureCoding: false){
-//            userDefautls.set(shapeData, forKey: "kDVShapes")
-//        }
-//        
-//        if let redoData = try? NSKeyedArchiver.archivedData(withRootObject: redoShapes, requiringSecureCoding: false){
-//            userDefautls.set(redoData, forKey: "kDVRedoShapes")
-//        }
-//        
-//        UserDefaults.standard.synchronize()
+        let userDefautls = UserDefaults.standard
+        
+        do{
+            let shapeData = try JSONEncoder().encode(shapes)
+            userDefautls.set(shapeData, forKey: "kDVShapes")
+            
+            let redoData = try JSONEncoder().encode(redoShapes)
+            userDefautls.set(redoData, forKey: "kDVRedoShapes")
+            
+            UserDefaults.standard.synchronize()
+        }catch{
+            print(error.localizedDescription)
+        }
     }
     
     // MARK: - Restore saved state
     public func restoreRecentState(){
         let userDefautls = UserDefaults.standard
         
-//
-//        if let shapeData = userDefautls.value(forKey: "kDVShapes") as? Data, let shapes = try? NSKeyedUnarchiver.unarchivedObject(ofClass: [DVShape].self, from: shapeData){
-//            self.shapes = shapes
-//        }
-//        if let redoShapes = userDefautls.value(forKey: "kDVRedoShapes") as? [DVShape]{
-//            self.redoShapes = redoShapes
-//        }
+        do{
+            if let shapeData = userDefautls.value(forKey: "kDVShapes") as? Data{
+                let shapes = try JSONDecoder().decode([DVShape].self, from: shapeData)
+                self.shapes = shapes
+            }
+            if let redoShapesData = userDefautls.value(forKey: "kDVRedoShapes") as? Data{
+                let redoShapes = try JSONDecoder().decode([DVShape].self, from: redoShapesData)
+                self.redoShapes = redoShapes
+            }
+        }catch{
+            print(error.localizedDescription)
+        }
         
         drawShapes(.all)
     }

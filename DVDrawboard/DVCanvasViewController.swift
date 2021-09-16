@@ -70,6 +70,14 @@ class DVCanvasViewController: UIViewController {
         canvasView.saveCurrentState()
     }
     
+    @IBAction func onSaveTap(_ sender: UIBarButtonItem) {
+        canvasView.saveCurrentState()
+    }
+    
+    @IBAction func onLoadTap(_ sender: UIBarButtonItem) {
+        canvasView.restoreRecentState()
+    }
+    
     @IBAction func onPencilTap(_ sender: UIBarButtonItem) {
         if selectButton.isSelected && !sender.isSelected{
             selectButton.isSelected = false
@@ -99,7 +107,7 @@ class DVCanvasViewController: UIViewController {
         canvasView.redo()
     }
     
-    @IBAction func onSaveTap(_ sender: UIBarButtonItem) {
+    @IBAction func onDownloadTap(_ sender: UIBarButtonItem) {
         Task(priority: .userInitiated) {
             do{
                 let success = try await canvasView.saveImage()
